@@ -1,0 +1,102 @@
+---
+title: "clase2"
+author: "eduardo_vazquez"
+date: "9/10/2020"
+output: html_document
+---
+
+#Creacion de endogramas
+#Los datos faltantes se colorean de color negro
+
+#Buscar dataset para correr el codigo de clase
+
+
+```{r}
+
+InsPack = function (pack) {
+  if(pack %in% rownames(installed.packages()) == FALSE) {
+    print (paste("Instalando ",pack))
+    install.packages(pack)}
+} 
+InsPack("xlsx")
+library(xlsx)
+InsPack("readxl")
+library(readxl)
+InsPack("openxlsx")
+library(openxlsx)
+InsPack("matrixStats")
+library(matrixStats)
+InsPack("zoom")
+library(zoom)
+InsPack("RColorBrewer")
+library("RColorBrewer")
+InsPack("gplots")
+library("gplots")
+InsPack("pheatmap")
+library("pheatmap")
+InsPack("gridExtra")
+library("gridExtra")
+InsPack("ComplexHeatmap")
+library("ComplexHeatmap")
+InsPack("dendextend")
+library(dendextend)
+BiocManager::install(version = "3.10")
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+
+Tarea presentar histograma y decir que distancia tomamos
+
+```{r}
+
+datos<- read.xlsx("findex.xlsx")
+#str(datos)
+datos <- datos %>%
+         select(Country.Name, Country.Code, Indicator.Name, "2011", "2014", "2017") %>%
+                filter(Indicator.Name == "Account (% age 15+)" &
+                       Country.Code %in% c(
+                                           "ARG", "BEL", "CAN",
+                                           "CHN", "COL", "ECU",
+                                           "FIN", "IND", "KOR",
+                                           "MEX", "PER", "QAT",
+                                           "ESP", "CHL", "COL",
+                                           "DEU", "AUS" 
+                                           ))  %>%
+                rename(
+                       country = Country.Name,
+                       c_code= Country.Code,
+                       indicator = Indicator.Name
+                       ) %>%
+              
+                drop_na()
+
+
+```
+
+
+#Graficamos Heatmap
+
+```{r}
+
+windows()
+heatmap(as.matrix(datos[,4:6]), labRow = datos$country)
+
+```
+
+
+#minitab crakeado
+https://drive.google.com/drive/folders/1JZZV2iKgo61lvEi4O59-Y6NFvPfbxoch?usp=sharing
+
+```{r}
+#matriz de correlaciones
+cor(datos[,4:6])
+
+#matriz de disimilitudes de mis datos
+dis <- 1-cor(datos[,4:6])
+dis
+```
+
+
+
+
