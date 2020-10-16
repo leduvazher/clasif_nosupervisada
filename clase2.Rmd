@@ -57,7 +57,7 @@ datos <- datos %>%
                 filter(Indicator.Name == "Account (% age 15+)" &
                        Country.Code != c(
                                            "EAP", "LAC", "LCN",
-                                           "EAS"
+                                           "EAS", "SSF", "SSA"
                                            ))  %>%
                 rename(
                        country = Country.Name,
@@ -77,8 +77,33 @@ datos <- datos %>%
 
 windows()
 heatmap(as.matrix(datos[,4:6]), labRow = datos$country)
+?meathmap
 
 ```
+
+
+```{r}
+library(corrplot)
+datos1 <- datos %>% select(1,4,5,6)
+cor(datos1[,1:4])
+str(datos1)
+head(datos1)
+correlacion <- round(cor(datos1[,2:4]),1)
+
+cor(data[,1:8])
+correlacion <- round(cor(data[,1:8]),1)
+
+#Grafico de correlación
+
+corrplot(correlacion, method = "number", type = "upper")
+
+
+plot(data[,1:8], pch='*') #neceistamos que nuestra variable tiene que estar correlacionada
+
+```
+
+
+
 
 
 #minitab crakeado
@@ -92,7 +117,7 @@ cor(datos[,4:6])
 dis <- 1-cor(datos[,4:6])
 dis
 ```
-
+jose.silvia@anahuac.mx
 
 
 
