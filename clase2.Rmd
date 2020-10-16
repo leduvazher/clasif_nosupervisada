@@ -55,13 +55,9 @@ datos<- read.xlsx("findex.xlsx")
 datos <- datos %>%
          select(Country.Name, Country.Code, Indicator.Name, "2011", "2014", "2017") %>%
                 filter(Indicator.Name == "Account (% age 15+)" &
-                       Country.Code %in% c(
-                                           "ARG", "BEL", "CAN",
-                                           "CHN", "COL", "ECU",
-                                           "FIN", "IND", "KOR",
-                                           "MEX", "PER", "QAT",
-                                           "ESP", "CHL", "COL",
-                                           "DEU", "AUS" 
+                       Country.Code != c(
+                                           "EAP", "LAC", "LCN",
+                                           "EAS"
                                            ))  %>%
                 rename(
                        country = Country.Name,
